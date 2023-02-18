@@ -1,0 +1,42 @@
+.head {
+    background: linear-gradient(90deg, rgba(86, 58, 112,1) 10%, rgba(253,187,45,0.3) 100%);
+    grid-area: h;
+    width: 100vw;
+    padding: 3px;
+    height: 100%;
+}
+  
+.head img {
+    height: 100%;
+    border-radius: 50%;
+}
+
+.loginBlock {
+    float: right;
+    height: 100%;
+    width: fit-content;
+    position: relative;
+
+}
+.innerLoginBlock {
+    margin: auto 30px;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%); 
+    transform: translateY(-50%);
+
+}
+
+.loginBlock a {
+    color: black;
+    text-decoration: none;
+}
+
+.innerLoginBlock button {
+    margin: 5px 10px;
+    padding: 5px;
+    background-color: rgb(185, 138, 230);
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 15px;
+}

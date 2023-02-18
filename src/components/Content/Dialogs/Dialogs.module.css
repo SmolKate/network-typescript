@@ -1,0 +1,88 @@
+.dialogs {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+    grid-template-areas:
+    "dl m";
+}
+
+@media all and (max-width: 575px) {
+    .dialogs {
+        width: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 70px 1fr;
+        grid-gap: 0px;
+        grid-template-areas:
+        "dl" "m";
+    } 
+}
+
+.dialogsList {
+    grid-area: dl;
+}
+
+@media all and (max-width: 575px) {
+    .dialogsList {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+}
+
+.dialogsList::-webkit-scrollbar {
+    height: 8px;
+    background-color: rgb(185, 138, 230);
+}
+
+.dialogsList::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgb(86 58 112);
+  }
+
+.messagesSection {
+    grid-area: m;
+    border-left: 2px solid darkgray;
+    padding: 0px 5px;
+}
+
+@media all and (max-width: 575px) {
+    .messagesSection {
+        border-top: 2px solid darkgray;
+        border-left: none;
+    }
+}
+
+.dialogItem {
+    padding: 5px;
+}
+
+.messagesSection textarea {
+    max-width: 400px;
+    color: black;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 5px;
+    background-color: rgba(253,187,45,0.2);
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.messagesSection textarea::placeholder {
+    color: black;
+} 
+
+.sendMessageBtn button {
+    background-color: rgb(185, 138, 230);
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size: 15px;
+    margin: 10px 0px;
+}
+
+.messageItem {
+    padding: 5px;
+}
+

@@ -1,0 +1,93 @@
+.item {
+    color:rgb(26, 17, 36);
+    display: grid;
+    grid-template-rows: 1fr 24px;
+    grid-template-columns: 70px 1fr;
+    grid-gap: 5px;
+    grid-template-areas:
+    "p p"
+    "l b";
+    border-left: 1px solid darkgray;   
+    border-right: 1px solid darkgray;
+    flex-grow: 1;
+    margin: 5px;
+    padding: 10px;
+}
+
+.image {
+    grid-area: i;
+}
+
+.image img {
+    border-radius: 25px;
+}
+
+.postText {
+    grid-area: p;
+}
+
+.newPostText textarea {
+    max-width: 400px;
+    color: black;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 5px;
+    background-color: rgba(253,187,45,0.2);
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.newPostText textarea::placeholder {
+    color: black;
+} 
+
+.addPostButton button {
+    background-color: rgb(185, 138, 230);
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size: 15px;
+    margin: 10px 0px;
+}
+
+.likeBtn {
+    grid-area: b;
+}
+
+.likeBtn button {
+    /* font-size: 10px; */
+    text-align: center;
+    background-color: rgba(253,187,45,1);
+    border: 2px solid rgba(253,187,45,0.5);
+    border-radius: 9px;
+    color: black;
+    width: 40px;
+    padding: 0;
+    margin: 0px 5px;
+}
+
+.likesCount {
+    grid-area: l;
+}
+
+.likesCount img {
+    height: 24px;
+    width: auto;
+    border-radius: 12px;
+    vertical-align: middle;
+    margin-right: 5px;
+
+}
+
+.form {
+    padding: 5px;
+}
+
+.errorMsg {
+    color: rgb(179, 5, 34);
+    text-shadow:  white 1px 0 15px;
+}
+
+.errorMsg textarea {
+    border: 1px solid rgb(179, 5, 34);
+}

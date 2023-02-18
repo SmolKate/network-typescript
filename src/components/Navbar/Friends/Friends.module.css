@@ -1,0 +1,27 @@
+.friendsField {
+    background-color: rgb(185, 138, 230);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.friendsComp {
+    grid-area: f;
+    background-color: rgb(185, 138, 230);
+    border: 1px solid rgba(253,187,45,0.5);
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.friendsComp h2 {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.pagesBlock {
+    padding: 10px;
+    margin-left:auto;
+    margin-right:auto;
+    width: fit-content;
+}

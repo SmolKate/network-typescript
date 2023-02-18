@@ -1,0 +1,75 @@
+#root {
+  position: absolute;
+  z-index: auto;
+  height: 100vh;
+  width: 100vw;
+}
+
+.app-wraper {
+  position: relative;
+  z-index: 15;
+  /* margin: 0px auto; */
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 15% 1fr;
+  grid-gap: 10px;
+  grid-template-areas:
+  "h h"
+  "n c";
+}
+
+
+/* @media all and (max-width: 575px) {
+  .app-wraper { 
+    position: relative;
+  z-index: 15;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 60px 120px 1fr;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  grid-template-areas:
+  "h"
+  "n"
+  "c";
+ }
+} */
+
+@media all and (max-width: 575px) {
+  .app-wraper { 
+    position: relative;
+    z-index: 15;
+    /* margin: 0px auto; */
+    height: 100vh;
+    width: calc(100vw - 20px);
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 85px 1fr;
+    grid-gap: 10px;
+    grid-template-areas:
+    "h h"
+    "n c";
+ }
+}
+.app-wraper-content {
+  height: 100%;
+  width: calc(100% - 20px);
+  grid-area: c;
+}
+
+.background {
+  background-color: blueviolet;
+  position: fixed;
+  width: 100vw;
+  height: max-content;
+}
+
+.background img {
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  object-fit: cover;
+}

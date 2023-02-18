@@ -1,0 +1,37 @@
+
+.dialogItem {
+    display: grid;
+    grid-template-rows: 50px;
+    grid-template-columns: 50px 1fr;
+    grid-gap: 10px;
+    grid-template-areas:
+    "i l";   
+}
+@media all and (max-width: 575px) {
+    .dialogItem {
+        width: 150px;   
+    }
+}
+.dialogItem a {
+    color: black;
+}
+
+.active a {
+    color: white;
+}
+
+.image {
+    grid-area: i;
+    
+}
+
+.image img {
+    border-radius: 25px;
+    width: 100%;
+}
+
+.link {
+    grid-area: l;
+    margin-top: auto;
+    margin-bottom: auto;
+}

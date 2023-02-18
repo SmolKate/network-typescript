@@ -1,0 +1,10 @@
+
+.selectedPage {
+    font-weight: bold;
+    padding: 2px
+   
+}
+
+.ordinaryPage {
+    padding: 2px;
+}

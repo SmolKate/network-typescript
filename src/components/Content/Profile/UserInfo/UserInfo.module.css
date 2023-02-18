@@ -1,0 +1,183 @@
+.description {
+    height: 100%;
+    padding: 5px;
+    display: grid;
+    grid-template-rows: 180px 1fr;
+    grid-template-columns: 180px 1fr;
+    grid-gap: 10px;
+    grid-template-areas:
+    "p i"
+    "b i";
+
+}
+
+@media all and (max-width: 575px) {
+    .description {
+        height: 100%;
+        padding: 5px;
+        display: grid;
+        grid-template-rows: fit-content(180px)  23px 1fr;
+        grid-template-columns: 100%;
+        grid-gap: 10px;
+        grid-template-areas:
+        "p" "b" "i";
+
+    }
+}
+
+.preloader {
+    width: 80px;
+}
+
+.avaPhoto {
+    width: 180px;
+    grid-area: p;
+    height: 100%;
+}
+
+.avaPhoto img {
+    border-radius: 5px;
+}
+
+.changePhoto {
+    display: block;
+    width: 180px;
+    background-color: rgba(0,0,0,0.5);
+    grid-area: p;
+    border-radius: 5px;
+}
+
+.inp {
+    display: none;
+}
+
+
+.chooseFileBtn {
+    background-color: rgb(185, 138, 230);
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size: 15px;
+    float: right;
+}
+
+.contactItem {
+    padding-left: 15px;
+}
+
+.contacts {
+    max-width: 400px;
+    min-width: 180px;
+    margin: 10px;
+    margin-left: 0px;
+    height: fit-content;
+    flex-grow: 1;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgba(253,187,45,0.2);
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.userInfo {
+    max-width: 400px;
+    min-width: 180px;
+    display: flex;
+    margin-right: 10px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.profileData {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    grid-area: i;
+}
+
+@media all and (max-width: 575px) {
+    .profileData {
+        max-width: calc(100vw - 105px);
+        justify-content: start;
+    }
+}
+
+.editBtn, .saveBtn {
+    grid-area: b;
+}
+
+.editBtn button, .saveBtn button{
+    grid-area: b;
+    background-color: rgb(185, 138, 230);
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.jobPicture {
+    width: 60px;
+    grid-area: p;
+    top: 150px;
+    position: relative;
+    left: 110px;
+    
+}
+
+.jobPicture img {
+    border-radius: 30px;
+}
+
+.aboutMe, .profSkills, .userNameStatusForm {
+    width: 100%;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 5px;
+    background-color: rgba(253,187,45,0.2);
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.userNameStatus {
+    width: 100%;
+}
+
+.lookJobForm {
+    display: inline-flex;
+    white-space: nowrap;
+    padding-right: 10px;
+    align-items: center;
+    width: 200px; 
+}
+
+.lookJobForm input {
+    background-color: black;
+}
+
+.profileData input,  .profileData textarea {
+    
+    width: 80%;
+    color: black;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 5px;
+    background-color: rgba(253,187,45,0.3);
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.profileData textarea::placeholder, .profileData input::placeholder {
+    color: lightgray;
+} 
+
+.errorArea input, .errorArea textarea {
+    border: 1px solid rgb(179, 5, 34);
+}
+
+.errorMsg {
+    color: rgb(179, 5, 34);
+    text-shadow:  white 1px 0 15px;
+}
+
