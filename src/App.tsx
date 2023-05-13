@@ -1,19 +1,21 @@
+import React, {FC} from 'react';
 import './App.css';
-import HeaderContainer from './components/Header/HeaderContainer';
-import Navbar from './components/Navbar/Navbar';
+import HeaderContainer from './components/Header/HeaderContainer.js';
+import Navbar from './components/Navbar/Navbar.js';
 import { Route, Routes } from 'react-router-dom';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
-import UsersContainer from './components/Content/Users/UsersContainer.tsx';
-import ProfileContainer from './components/Content/Profile/ProfileContainer';
+import UsersContainer from './components/Content/Users/UsersContainer';
+import ProfileContainer from './components/Content/Profile/ProfileContainer.js';
 import LoginContainer from './components/Content/Login/LoginContainer';
-import { initialiseApp } from './redux/app-reducer.ts';
+import { initialiseApp } from './redux/app-reducer';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
-import Preloader from './common/Preloader/Preloader';
+import { ConnectedProps, connect } from 'react-redux';
+import Preloader from './common/Preloader/Preloader.js';
 import backPhoto from './assets/forest.jpeg'
+import { RootState } from './redux/redux-store';
 
 
-const App = ({initialiseApp, isInitialised}) => {
+const App: FC<PropsFromRedux> = ({initialiseApp, isInitialised}) => {
   
   useEffect(() => {
     initialiseApp()
@@ -51,9 +53,13 @@ const App = ({initialiseApp, isInitialised}) => {
   )  
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: RootState) => {
   return {
       isInitialised: state.app.isInitialised
   }
 }
-export default connect(mapStateToProps, {initialiseApp})(App)
+let connector = connect(mapStateToProps, {initialiseApp})
+
+export default connector(App)
+
+type PropsFromRedux = ConnectedProps<typeof connector>

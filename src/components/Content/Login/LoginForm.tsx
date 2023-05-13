@@ -1,9 +1,10 @@
-import { Form, Field } from 'formik'
+import { Form, Field, FormikProps } from 'formik'
 import React from 'react';
 import s from './LoginForm.module.css'
+import { FormValuesType, OtherPropsType } from './Login';
 
 
-const LoginForm = ({ errors, touched, status, ...props }) => {
+const LoginForm = ({ errors, touched, status, ...props }: OtherPropsType & FormikProps<FormValuesType>) => {
     return (
             <Form className={s.form}>
                 <div>

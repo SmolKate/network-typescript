@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux'
 import Users from './Users';
-import { getUsers, follow, unfollow, setPageNumber} from '../../../redux/users-reducer'
+import { getUsers, follow, unfollow, actions} from '../../../redux/users-reducer'
 import { getUsersData, getPageSize, getPageNumber, getTotalUsersCount, getIsFetching, getIsFollowingInProgress } from '../../../redux/users-selectors';
 import type { RootState } from '../../../redux/redux-store';
 
@@ -15,11 +15,15 @@ let mapStateToProps = (state: RootState) => {
         isAuth: state.auth.isAuth
     }
 }
+
+let setPageNumber = actions.setPageNumber
+
 const connector = connect(mapStateToProps, 
     {getUsers, follow, unfollow, setPageNumber})
 
-export type PropsFromRedux = ConnectedProps<typeof connector>
 export default connector(Users)
+
+export type PropsFromRedux = ConnectedProps<typeof connector>
 
 // Manually Typing connect without ConnectedProps:
 

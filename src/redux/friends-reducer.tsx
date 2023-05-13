@@ -1,7 +1,5 @@
-import { usersAPI } from "../api/api.js";
-import { RootState } from './redux-store'
-import { ThunkAction } from '@reduxjs/toolkit';
-
+import { usersAPI } from "../api/api";
+import { BasicThunkType } from './redux-store'
 
 type ItemsType = {
     name: string
@@ -13,19 +11,21 @@ type ItemsType = {
     status?: null | string,
     followed: boolean
 }
-type ActionsType =  ReturnType<typeof getFollowedUsersData> |
-                    ReturnType<typeof setTotalCount> | 
-                    ReturnType<typeof setPageNumber> 
 
-export type ThunkType = ThunkAction<Promise<void>, RootState, unknown, ActionsType>
+type InitialStateType = typeof initialState
 
-const GET_FOLLOWED_USERS_DATA = 'friends/GET_FOLLOWED_USERS_DATA';
-const SET_TOTAL_COUNT = 'friends/SET_TOTAL_COUNT';
-const SET_PAGE_NUMBER = 'friends/SET_PAGE_NUMBER';
+// one of the way to create set of types for all actions but it's beter to use 
+// InferActionsType<T> = T extends {[key: string]: infer U} ? U : never
+type ActionsThunkType =  typeof getFollowedUsersData |
+                        typeof setTotalCount | 
+                        typeof setPageNumber
+type ActionsType =  ReturnType<ActionsThunkType> 
 
-export const getFollowedUsersData = (followedUsersData: Array<ItemsType>) => ({type: GET_FOLLOWED_USERS_DATA, followedUsersData} as const)
-export const setTotalCount = (totalUsersCount: number) => ({type: SET_TOTAL_COUNT, totalUsersCount} as const);
-export const setPageNumber = (pageNumber: number) => ({type: SET_PAGE_NUMBER, pageNumber} as const)
+// export type ThunkType = ThunkAction<Promise<void>, RootState, unknown, ActionsType>
+type ThunkType = BasicThunkType<ActionsType>
+export const getFollowedUsersData = (followedUsersData: Array<ItemsType>) => ({type: 'friends/GET_FOLLOWED_USERS_DATA', followedUsersData} as const)
+export const setTotalCount = (totalUsersCount: number) => ({type: 'friends/SET_TOTAL_COUNT', totalUsersCount} as const);
+export const setPageNumber = (pageNumber: number) => ({type: 'friends/SET_PAGE_NUMBER', pageNumber} as const)
 
 let initialState = {
     friendsData: [] as Array<ItemsType>,
@@ -34,23 +34,21 @@ let initialState = {
     pageNumber: 1,
 };
 
-type InitialStateType = typeof initialState
-
 const friendsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case GET_FOLLOWED_USERS_DATA:
+        case "friends/GET_FOLLOWED_USERS_DATA":
             return {
                 ...state,
                 friendsData: action.followedUsersData,
             };
 
-        case SET_PAGE_NUMBER:
+        case "friends/SET_PAGE_NUMBER":
             return {
                 ...state,
                 pageNumber: action.pageNumber
             }
         
-        case SET_TOTAL_COUNT:
+        case "friends/SET_TOTAL_COUNT":
             return {
                 ...state,
                 totalUsersCount: action.totalUsersCount

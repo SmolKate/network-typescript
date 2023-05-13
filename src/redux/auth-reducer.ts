@@ -1,16 +1,18 @@
-import { ThunkAction } from "@reduxjs/toolkit";
-import { authAPI } from "../api/api.js";
+import { ResultCodeForCaptchaEnum } from './../api/api';
+import { ResultCodeEnum, authAPI } from "../api/api";
 import * as actions from './auth-actions'
-import {SET_USER_DATA, CHANGE_IS_AUTH_FETCHING, SET_LOGOUT, SET_CAPTCHA_URL} from './auth-constants'
-import { RootState } from "./redux-store.jsx";
+import { BasicActionsType, BasicThunkType } from "./redux-store.jsx";
 
-// create set of types for all actions which are returnd from all action creators. Action creators should be as object:
-type InferActionsType<T> = T extends {[key: string]: infer U} ? U : never
-type ActionsType = ReturnType<InferActionsType<typeof actions>>
-export type ThunkType = ThunkAction<Promise<void>, RootState, unknown, ActionsType>
+// create set of types for all actions which are returnd from all action creators. Action creators should be as an object:
+type ActionsType = BasicActionsType<typeof actions>
+type ThunkType = BasicThunkType<ActionsType>
 
+// Another method:
+// type InferActionsType<T> = T extends {[key: string]: infer U} ? U : never
+// type ActionsType = ReturnType<InferActionsType<typeof actions>>
+// export type ThunkType = ThunkAction<Promise<void>, RootState, unknown, ActionsType>
 
-export type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
 let initialState = {
     id: null as number | null,
@@ -24,13 +26,13 @@ let initialState = {
 const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
     
     switch (action.type) {
-        case SET_USER_DATA:
+        case 'auth/SET_USER_DATA':
             return {
                 ...state,
                 ...action.data,
                 isAuth: true
             };
-        case SET_LOGOUT:
+        case 'auth/SET_LOGOUT':
             return {
                 ...state,
                 id: null,
@@ -38,12 +40,12 @@ const authReducer = (state = initialState, action: ActionsType): InitialStateTyp
                 login: null,
                 isAuth: false
             };
-        case CHANGE_IS_AUTH_FETCHING:
+        case 'auth/CHANGE_IS_AUTH_FETCHING':
             return {
                 ...state,
                 isAuthFetching: action.isAuthFetching
             }
-        case SET_CAPTCHA_URL:
+        case 'auth/SET_CAPTCHA_URL':
             return {
                 ...state,
                 captchaUrl: action.captchaUrl
@@ -61,7 +63,7 @@ export const setAuth = (): ThunkType => async (dispatch) => {
     dispatch(actions.changeIsAuthFetching(true))
     const data = await authAPI.getAuth();
     dispatch(actions.changeIsAuthFetching(false));
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
         let { id, email, login } = data.data;
         dispatch(actions.setAuthUserData(id, email, login));
     }
@@ -72,10 +74,10 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     dispatch(actions.changeIsAuthFetching(true))
     const data = await authAPI.login(email, password, rememberMe, captcha)
     dispatch(actions.changeIsAuthFetching(false))
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(setAuth())
     } else {
-        if (data.resultCode === 10) {
+        if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
             dispatch(getCaptchaUrl())
         }
         setStatus(data.messages)

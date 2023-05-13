@@ -37,6 +37,6 @@ export type UsersDataType = {
     followed: boolean
 }
 
-export type InferActionsType<T> = T extends {[key: string]: infer U} ? U : never
+// export type InferActionsType<T> = T extends {[key: string]: infer U} ? U : never
 
 

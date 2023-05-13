@@ -1,18 +1,13 @@
-import { ThunkAction } from "@reduxjs/toolkit";
 import { setAuth } from "./auth-reducer"; 
-import { RootState } from "./redux-store";
+import { BasicActionsType, BasicThunkType, RootState } from "./redux-store";
 
-type ActionsType = ReturnType<typeof setInitialisedSuccess> 
+type InitialStateType = typeof initialState
+type ActionsType = BasicActionsType<typeof actions> 
+type ThunkType = BasicThunkType<ActionsType, void>
 
-export type InitialStateType = typeof initialState
-export type ThunkType = ThunkAction<void, RootState, unknown, ActionsType>
-
-
-const SET_INITIALISED_SUCCESS = 'app/SET_INITIALISED_SUCCESS';
-
-export const setInitialisedSuccess = () => ({type: SET_INITIALISED_SUCCESS} as const)
-
-// type ActionsType = ReturnType<typeof setInitialisedSuccess>
+export const actions = {
+    setInitialisedSuccess : () => ({type: 'app/SET_INITIALISED_SUCCESS'} as const)
+}
 
 let initialState = {
     isInitialised: false
@@ -21,7 +16,7 @@ let initialState = {
 const appReducer = (state = initialState, action : ActionsType): InitialStateType => {
     
     switch (action.type) {
-        case SET_INITIALISED_SUCCESS:
+        case "app/SET_INITIALISED_SUCCESS":
             return {
                 ...state,
                 isInitialised: true
@@ -38,7 +33,7 @@ export const initialiseApp = (): ThunkType => (dispatch) => {
     let promise = dispatch(setAuth())
     Promise.all([promise])
         .then( () => {
-            dispatch(setInitialisedSuccess())
+            dispatch(actions.setInitialisedSuccess())
         }) 
 }
 

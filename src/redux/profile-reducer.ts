@@ -1,25 +1,17 @@
-import { ThunkAction } from "@reduxjs/toolkit";
-import { profileAPI } from "../api/api.js";
+import { profileAPI } from "../api/api";
 import { PostType, ProfileType } from '../types/types'
-import { RootState } from "./redux-store.jsx";
+import { BasicActionsType, BasicThunkType } from "./redux-store.jsx";
 
 type InitialStateType = typeof initialState
+type ActionsType = BasicActionsType<typeof actions>
+type ThunkType = BasicThunkType<ActionsType>
+type a = typeof actions
 
-type ActionsType =  ReturnType<typeof addPostActionCreator> |
-                    ReturnType<typeof setProfile> | 
-                    ReturnType<typeof setStatus> 
-
-export type ThunkType = ThunkAction<Promise<void>, RootState, unknown, ActionsType>
-
-const ADD_POST = 'profile/ADD-POST';
-const SET_PROFILE = 'profile/SET_PROFILE';
-const SET_STATUS = 'profile/SET_STATUS';
-
-
-export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
-export const setProfile = (profile: ProfileType) => ({type: SET_PROFILE, profile} as const)
-export const setStatus = (status: string) => ({type: SET_STATUS, status} as const)
-
+export const actions = {
+    addPostActionCreator : (newPostText: string) => ({type: 'profile/ADD_POST', newPostText} as const),
+    setProfile : (profile: ProfileType) => ({type: 'profile/SET_PROFILE', profile} as const),
+    setStatus : (status: string) => ({type: 'profile/SET_STATUS', status} as const)
+}
 
 let initialState = {
     postsData: [
@@ -35,7 +27,7 @@ let initialState = {
 const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
     
     switch (action.type) {
-        case ADD_POST:
+        case "profile/ADD_POST":
             let newPost = {
                 id: 5,
                 message: action.newPostText,
@@ -46,13 +38,13 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
                 postsData: [...state.postsData, newPost],
             };
         
-        case SET_PROFILE:
+        case "profile/SET_PROFILE":
             return {
                 ...state,
                 profile: action.profile,
             };
 
-        case SET_STATUS:
+        case "profile/SET_STATUS":
             return {
                 ...state,
                 status: action.status,
@@ -68,25 +60,25 @@ export default profileReducer;
 // Get user's profile data and save it in the state
 export const getProfile = (userId: number | null): ThunkType => async (dispatch) => {
     const data = await profileAPI.getProfile(userId)
-    dispatch(setProfile(data))    
+    dispatch(actions.setProfile(data))    
 }
 
 // Get user's status and save it in the state
 export const getStatus = (userId: number | null): ThunkType => async (dispatch) => {
     const data = await profileAPI.getStatus(userId)
-    dispatch(setStatus(data))
+    dispatch(actions.setStatus(data))
 }
 
 // Set new status of the authorised user and get it back from the server
 export const updateStatus = (status: string): ThunkType => async (dispatch) => {
     const data = await profileAPI.updateStatus(status)
     if (data.resultCode === 0) {
-        dispatch(setStatus(status))
+        dispatch(actions.setStatus(status))
     }
 }
 
 // Set new avatar of the authorised user and get it back from the server
-export const updatePhoto = (file: any): ThunkType => async (dispatch, getState) => {
+export const updatePhoto = (file: File): ThunkType => async (dispatch, getState) => {
     const userId = getState().auth.id
     const data = await profileAPI.updatePhoto(file)
     if (data.resultCode === 0) {

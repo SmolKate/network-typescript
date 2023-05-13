@@ -1,26 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from './Dialogs.module.css';
-import DialogItem from './DialogItem/DialogItem';
-import MessageItem from './MessageItem/MessageItem';
+import DialogItem from './DialogItem/DialogItem.js';
+import MessageItem from './MessageItem/MessageItem.js';
 import NewMessageForm from "./NewMessageForm";
 import { withFormik } from "formik";
 import * as Yup from 'yup'; 
 import { useParams } from "react-router-dom";
+import { PropsFromRedux } from "./DialogsContainer";
+
+type MessagesType = Array<{
+    id: number 
+    text: string 
+    userAuthId: boolean
+}>
 
 // Show all chats of authenticated user and input form to add a new message
-
-const Dialogs = ({dialogsPage, onAddMessage}) => {
+const Dialogs: React.FC<PropsFromRedux> = ({dialogsPage, onAddMessage}) => {
 
     // Get id of the user, whose messeges need to be displayed, from url.
-    const {chatId} = useParams()
-
+    const {chatId} = useParams<{chatId?: string}>() 
+  
     // Create the list with all users, who have messages
     let dialogElements = dialogsPage.dialogsData
     .map (d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
 
     // Get messages for the user with indicated id
-    let messages
-    let name
+    let messages: MessagesType = []
+    let name: string
     if (!!chatId) {
         let userChat = dialogsPage.dialogsData.filter( i => i.id.toString() === chatId)
         messages = userChat[0].messages
@@ -49,7 +55,9 @@ const Dialogs = ({dialogsPage, onAddMessage}) => {
 }
 export default Dialogs;
 
-export const DialogsFormFormik = withFormik({
+
+
+export const DialogsFormFormik = withFormik<MyFormPropsType & OtherPropsType, FormValuesType>({
     
     mapPropsToValues ({newMessage}) {
         return {
@@ -59,8 +67,22 @@ export const DialogsFormFormik = withFormik({
     validationSchema: Yup.object().shape({
         newMessage: Yup.string().max(100, 'Max length is 100 simbols.').required('')
     }),
-    handleSubmit (values, {...actions}) {
+    handleSubmit (values: FormValuesType, {...actions}) {
         actions.props.onAddMessage(values.newMessage, actions.props.chatId)
         values.newMessage = ''
     }
 })(NewMessageForm)
+
+// Types for the form
+
+export type FormValuesType = {    // all the values that we’re going to have in our form
+    newMessage: string
+}
+
+type MyFormPropsType = {  // to define some properties for our initial values
+    newMessage?: string | undefined
+}
+export type OtherPropsType = {    // to pass other props to our component
+    onAddMessage: PropsFromRedux["onAddMessage"]
+    chatId: string
+}
