@@ -1,9 +1,5 @@
 import { setAuth } from "./auth-reducer"; 
-import { BasicActionsType, BasicThunkType, RootState } from "./redux-store";
-
-type InitialStateType = typeof initialState
-type ActionsType = BasicActionsType<typeof actions> 
-type ThunkType = BasicThunkType<ActionsType, void>
+import { BasicActionsType, BasicThunkType } from "./redux-store";
 
 export const actions = {
     setInitialisedSuccess : () => ({type: 'app/SET_INITIALISED_SUCCESS'} as const)
@@ -36,5 +32,11 @@ export const initialiseApp = (): ThunkType => (dispatch) => {
             dispatch(actions.setInitialisedSuccess())
         }) 
 }
+
+// Types
+
+type InitialStateType = typeof initialState
+type ActionsType = BasicActionsType<typeof actions> 
+type ThunkType = BasicThunkType<ActionsType, void>
 
 

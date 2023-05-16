@@ -1,8 +1,9 @@
 import React from "react";
-import { Field, Form } from "formik";
+import { Field, Form, FormikProps } from "formik";
 import s from './PostElem.module.css'
+import { FormValuesType, OtherPropsType } from "../MyPosts";
 
-const NewPostForm = ({ errors, touched }) => {
+const NewPostForm = ({ errors, touched }: OtherPropsType & FormikProps<FormValuesType>) => {
     return (
         <Form className={s.form+' '+(touched.newPost && errors.newPost ? s.errorMsg : '')}>
             <div className={s.newPostText}>

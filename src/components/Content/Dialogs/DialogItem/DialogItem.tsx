@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import s from './DialogItem.module.css';
 import { Link } from 'react-router-dom';
 
-const DialogItem = (props) => {
+const DialogItem: FC<DialogItemType> = (props) => {
     // Add user id to url in order to indicate that messages need to be shown
     let path = "/dialogs/" + props.id;
     
@@ -23,3 +23,10 @@ const DialogItem = (props) => {
 }
 
 export default DialogItem;
+
+// Types
+
+type DialogItemType = {
+    id: number
+    name: string
+}

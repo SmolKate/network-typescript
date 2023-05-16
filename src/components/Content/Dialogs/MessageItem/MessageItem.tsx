@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import s from './MessageItem.module.css';
 
-const MessageItem = ({name, text, userAuthId}) => {
+const MessageItem: FC<MessageElementType> = ({name, text, userAuthId}) => {
 
     // Set different styles for messages of authenticated user and his/her friend
     let className
@@ -24,3 +24,11 @@ const MessageItem = ({name, text, userAuthId}) => {
 }
 
 export default MessageItem;
+
+// Types
+
+type MessageElementType = {
+    name: string 
+    text: string 
+    userAuthId: boolean
+}

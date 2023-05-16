@@ -23,6 +23,8 @@ const connector = connect(mapStateToProps,
 
 export default connector(Users)
 
+// Types
+
 export type PropsFromRedux = ConnectedProps<typeof connector>
 
 // Manually Typing connect without ConnectedProps:

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './Users.module.css';
 import userPhoto from '../../../assets/ava3.png';
 import { Link } from 'react-router-dom';
+import { UsersDataType } from '../../../types/types';
 
-const User = (props) => {
+const User: FC<UserType> = (props) => {
     return (<div className={s.userBlock}>
         <div className={s.photo}>
             <Link to={"/profile/"+props.user.id}><img src={props.user.photos.small != null ? props.user.photos.small : userPhoto} /></Link>
@@ -24,3 +25,14 @@ const User = (props) => {
 }
 
 export default User;
+
+// Types
+
+type UserType = {
+    key: React.Key
+    user: UsersDataType
+    isAuth: boolean    
+    isFollowingInProgress: number[]
+    unfollow: (userId: number) => Promise<void>
+    follow: (userId: number) => Promise<void>
+}

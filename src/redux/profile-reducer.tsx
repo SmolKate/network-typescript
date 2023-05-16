@@ -2,11 +2,6 @@ import { profileAPI } from "../api/api";
 import { PostType, ProfileType } from '../types/types'
 import { BasicActionsType, BasicThunkType } from "./redux-store.jsx";
 
-type InitialStateType = typeof initialState
-type ActionsType = BasicActionsType<typeof actions>
-type ThunkType = BasicThunkType<ActionsType>
-type a = typeof actions
-
 export const actions = {
     addPostActionCreator : (newPostText: string) => ({type: 'profile/ADD_POST', newPostText} as const),
     setProfile : (profile: ProfileType) => ({type: 'profile/SET_PROFILE', profile} as const),
@@ -87,7 +82,7 @@ export const updatePhoto = (file: File): ThunkType => async (dispatch, getState)
 }
 
 // Set new profile data of the authorised user and get it back from the server
-export const updateProfile = (profile: ProfileType, setStatus: any, setEditMode: any): ThunkType => async (dispatch, getState) => {
+export const updateProfile = (profile: Omit<ProfileType, "photos">, setStatus: (status?: any) => void, setEditMode: (value: React.SetStateAction<boolean>) => void): ThunkType => async (dispatch, getState) => {
     const userId = getState().auth.id
     const data = await profileAPI.updateProfile(profile)
     if (data.resultCode === 0) {
@@ -97,3 +92,9 @@ export const updateProfile = (profile: ProfileType, setStatus: any, setEditMode:
         setStatus(data.messages)
     }
 }
+
+// Types
+
+type InitialStateType = typeof initialState
+type ActionsType = BasicActionsType<typeof actions>
+type ThunkType = BasicThunkType<ActionsType>

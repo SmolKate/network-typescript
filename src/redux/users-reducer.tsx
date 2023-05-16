@@ -3,10 +3,6 @@ import { getFollowedUsers } from "./friends-reducer";
 import { UsersDataType } from "../types/types"
 import { RootState, AppDispatch, BasicActionsType, BasicThunkType } from './redux-store'
 
-type InitialStateType = typeof initialState
-type ActionsType = BasicActionsType<typeof actions>
-type ThunkType = BasicThunkType<ActionsType>
-
 export const actions = {
     followSuccess: (userId: number) => ({type: 'users/FOLLOW', userId} as const),
     unfollowSuccess: (userId: number) => ({type: 'users/UNFOLLOW', userId} as const),
@@ -121,8 +117,8 @@ export const unfollow = (userId: number): ThunkType => async (dispatch) => {
     dispatch(getFollowedUsers())
 }
 
-// Set page number
-// export const setPageNumber = (pageNumber: number): ThunkType => async (dispatch) => {
-//     dispatch(actions.setPageNumber(pageNumber))
-// }
+// Types
 
+type InitialStateType = typeof initialState
+type ActionsType = BasicActionsType<typeof actions>
+type ThunkType = BasicThunkType<ActionsType>

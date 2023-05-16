@@ -2,7 +2,7 @@ import reportWebVitals from './reportWebVitals.js';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App.js';
+import App from './App';
 // @ts-ignore
 import store from './redux/redux-store';
 import { HashRouter } from 'react-router-dom';
@@ -18,8 +18,5 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
       </HashRouter>
     </React.StrictMode>
 );
-
-
-
 
 reportWebVitals();

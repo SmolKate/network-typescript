@@ -1,19 +1,20 @@
-import React, { FieldsetHTMLAttributes, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Form, Field, FormikProps } from "formik";
 import s from './NewMessageForm.module.css'
 import { FormValuesType, OtherPropsType } from "./Dialogs";
 
 const NewMessageForm = ({ errors, touched, handleReset, chatId }: OtherPropsType & FormikProps<FormValuesType>) => {
     
-    useEffect(() => {
-        handleReset()
-        setFocus()
-    }, [chatId])
-
-    const messageInput = useRef<HTMLTextAreaElement>(null)
     const setFocus = (): void => {
         messageInput.current && messageInput.current.focus()
     }
+    const messageInput = useRef<HTMLTextAreaElement>(null)
+
+    useEffect(() => {
+        handleReset()
+        setFocus()
+    }, [chatId, handleReset])
+    
     return (
         <Form className={s.form+' '+(touched.newMessage && errors.newMessage ? s.errorMsg : '')}>
             <div>

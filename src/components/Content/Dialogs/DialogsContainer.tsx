@@ -5,7 +5,6 @@ import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import { compose } from 'redux';  
 import { AppDispatch, RootState } from "../../../redux/redux-store";
 
-export type PropsFromRedux = ConnectedProps<typeof connector>
 let mapStateToProps = (state: RootState) => {
     return {
         dialogsPage : state.dialogsPage,
@@ -21,6 +20,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps)
 
 // Create two containers: connect and withAuthRedirect HOC, which checks authentification
 
-export default compose<React.ComponentType> (connector, withAuthRedirect)(Dialogs)
+export default compose<React.ComponentType>(connector, withAuthRedirect)(Dialogs)
 
-// export default withAuthRedirect(connector(Dialogs))
+// Types
+export type PropsFromRedux = ConnectedProps<typeof connector>

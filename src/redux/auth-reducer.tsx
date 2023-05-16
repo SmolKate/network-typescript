@@ -1,18 +1,7 @@
-import { ResultCodeForCaptchaEnum } from './../api/api';
+import { ResultCodeForCaptchaEnum } from '../api/api';
 import { ResultCodeEnum, authAPI } from "../api/api";
 import * as actions from './auth-actions'
 import { BasicActionsType, BasicThunkType } from "./redux-store.jsx";
-
-// create set of types for all actions which are returnd from all action creators. Action creators should be as an object:
-type ActionsType = BasicActionsType<typeof actions>
-type ThunkType = BasicThunkType<ActionsType>
-
-// Another method:
-// type InferActionsType<T> = T extends {[key: string]: infer U} ? U : never
-// type ActionsType = ReturnType<InferActionsType<typeof actions>>
-// export type ThunkType = ThunkAction<Promise<void>, RootState, unknown, ActionsType>
-
-type InitialStateType = typeof initialState
 
 let initialState = {
     id: null as number | null,
@@ -100,3 +89,17 @@ export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     const captchaUrl = data.url
     dispatch(actions.getCaptchaUrlSuccess(captchaUrl))
 }
+
+// Types 
+
+// create set of types for all actions which are returnd from all action creators. Action creators should be as an object:
+type ActionsType = BasicActionsType<typeof actions>
+type ThunkType = BasicThunkType<ActionsType>
+
+// Another method:
+// type InferActionsType<T> = T extends {[key: string]: infer U} ? U : never
+// type ActionsType = ReturnType<InferActionsType<typeof actions>>
+// export type ThunkType = ThunkAction<Promise<void>, RootState, unknown, ActionsType>
+
+type InitialStateType = typeof initialState
+

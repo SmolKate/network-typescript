@@ -1,22 +1,26 @@
-import React from "react";
+import React, { FC } from "react";
 import UserInfo from './UserInfo/UserInfo';
 import s from './Profile.module.css'
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import { useLocation, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { PropsFromRedux } from "./ProfileContainer";
 
 // Display user's data and his/her posts
 
-const Profile = (props) => {
+const Profile: FC<PropsFromRedux> = (props) => {
+    let {isAuthFetching, getProfile, getStatus, userAuthId} = props
 
     // reload Component at the url changing
     const location = useLocation();   
 
     // get user id from url to show profile of the other user (not authenticated)
-    const {userId} = useParams(); 
-    
-    let {isAuthFetching, getProfile, getStatus, userAuthId} = props
+    const {userIdString} = useParams<Record<string, string | undefined>>(); 
+    let userId: number | null = Number(userIdString) 
+    if (!userIdString) {
+        userId = null
+    }
     
     // Get users data from server
     useEffect(() => { 

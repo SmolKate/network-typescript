@@ -43,6 +43,8 @@ const LoginFormFormik  = withFormik<MyFormPropsType & OtherPropsType, FormValues
     }
 })(LoginForm)
 
+// Types for the form
+
 export type FormValuesType = {    // all the values that we’re going to have in our form
     email: string
     password: string

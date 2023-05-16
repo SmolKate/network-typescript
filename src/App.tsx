@@ -1,16 +1,16 @@
 import React, {FC} from 'react';
 import './App.css';
-import HeaderContainer from './components/Header/HeaderContainer.js';
-import Navbar from './components/Navbar/Navbar.js';
+import HeaderContainer from './components/Header/HeaderContainer';
+import Navbar from './components/Navbar/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import UsersContainer from './components/Content/Users/UsersContainer';
-import ProfileContainer from './components/Content/Profile/ProfileContainer.js';
+import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import LoginContainer from './components/Content/Login/LoginContainer';
 import { initialiseApp } from './redux/app-reducer';
 import { useEffect } from 'react';
 import { ConnectedProps, connect } from 'react-redux';
-import Preloader from './common/Preloader/Preloader.js';
+import Preloader from './common/Preloader/Preloader';
 import backPhoto from './assets/forest.jpeg'
 import { RootState } from './redux/redux-store';
 
@@ -19,7 +19,7 @@ const App: FC<PropsFromRedux> = ({initialiseApp, isInitialised}) => {
   
   useEffect(() => {
     initialiseApp()
-  }, []);
+  }, [initialiseApp]);
 
   // Show the loading page during app initialisation
 
@@ -41,7 +41,7 @@ const App: FC<PropsFromRedux> = ({initialiseApp, isInitialised}) => {
         <Routes>
           <Route path='/dialogs' element={<DialogsContainer/>} />
           <Route path='/profile' element={<ProfileContainer />} />
-          <Route path='/profile/:userId' element={<ProfileContainer />} />
+          <Route path='/profile/:userIdString' element={<ProfileContainer />} />
           <Route path='/users' element={<UsersContainer />} />
           <Route path='/dialogs/:chatId' element={<DialogsContainer />} />
           <Route path='/login' element={<LoginContainer />} />
@@ -61,5 +61,7 @@ let mapStateToProps = (state: RootState) => {
 let connector = connect(mapStateToProps, {initialiseApp})
 
 export default connector(App)
+
+// Types
 
 type PropsFromRedux = ConnectedProps<typeof connector>

@@ -1,18 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import s from './Dialogs.module.css';
-import DialogItem from './DialogItem/DialogItem.js';
-import MessageItem from './MessageItem/MessageItem.js';
+import DialogItem from './DialogItem/DialogItem';
+import MessageItem from './MessageItem/MessageItem';
 import NewMessageForm from "./NewMessageForm";
 import { withFormik } from "formik";
 import * as Yup from 'yup'; 
 import { useParams } from "react-router-dom";
 import { PropsFromRedux } from "./DialogsContainer";
-
-type MessagesType = Array<{
-    id: number 
-    text: string 
-    userAuthId: boolean
-}>
 
 // Show all chats of authenticated user and input form to add a new message
 const Dialogs: React.FC<PropsFromRedux> = ({dialogsPage, onAddMessage}) => {
@@ -56,7 +50,6 @@ const Dialogs: React.FC<PropsFromRedux> = ({dialogsPage, onAddMessage}) => {
 export default Dialogs;
 
 
-
 export const DialogsFormFormik = withFormik<MyFormPropsType & OtherPropsType, FormValuesType>({
     
     mapPropsToValues ({newMessage}) {
@@ -72,6 +65,14 @@ export const DialogsFormFormik = withFormik<MyFormPropsType & OtherPropsType, Fo
         values.newMessage = ''
     }
 })(NewMessageForm)
+
+// Types for the component
+
+type MessagesType = {
+    id: number 
+    text: string 
+    userAuthId: boolean
+} []
 
 // Types for the form
 

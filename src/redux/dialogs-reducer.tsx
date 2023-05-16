@@ -1,7 +1,5 @@
-export type InitialStateType = typeof initialState
-type ActionsType =  ReturnType<typeof addMessageActionCreator>
-
-export const addMessageActionCreator = (newMessage: string, chatId: string) => ({type: 'dialogs/ADD_MESSAGE', newMessage, chatId} as const)
+export const addMessageActionCreator = (newMessage: string, chatId: string) => 
+                ({type: 'dialogs/ADD_MESSAGE', newMessage, chatId} as const)
 
 let initialState = {
     dialogsData: [
@@ -45,3 +43,8 @@ const dialogsReducer = (state=initialState, action: ActionsType): InitialStateTy
 }
 
 export default dialogsReducer;
+
+// Types
+
+export type InitialStateType = typeof initialState
+type ActionsType =  ReturnType<typeof addMessageActionCreator>

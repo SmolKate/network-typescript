@@ -1,12 +1,15 @@
-import React from "react";
+import React, {FC} from "react";
 import s from './UserInfo.module.css';
 import ProfileStatus from './ProfileStatus';
+import Contact from './Contact';
+import { ContactsType, ProfileType } from "../../../../types/types";
 
-const ProfileData = (props) => {
+const ProfileData: FC<ProfileDataType> = (props) => {
     
     // Create the list of indicated contacts, pass the undefined contacts
-    let contacts = Object.keys(props.profile.contacts).map( key => {
-        return props.profile.contacts[key] && <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]} />
+    let keys = Object.keys(props.profile.contacts) as Array<keyof ContactsType>
+    let contacts = keys.map( (key: keyof ContactsType) => {
+        return !!props.profile.contacts[key] && <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]} />
     })
 
     return <div className={s.profileData}>
@@ -28,8 +31,15 @@ const ProfileData = (props) => {
     </div>
 }
 
-const Contact = ({contactTitle, contactValue}) => {
-    return <div className={s.contactItem}><b>{contactTitle}</b>: {contactValue}</div>
+export default ProfileData;
+
+// Types
+
+export type ProfileDataType = {
+    profile: ProfileType
+    userId: number | null
+    userAuthId: number | null
+    status: string
+    updateStatus: (status: string) => void
 }
 
-export default ProfileData;

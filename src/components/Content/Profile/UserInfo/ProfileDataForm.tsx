@@ -1,7 +1,8 @@
-import { Form, Field } from "formik";
+import { Form, Field, FormikProps } from "formik";
 import s from './UserInfo.module.css';
+import { FormValuesType, OtherPropsType } from "./UserInfo";
 
-const ProfileDataForm = ({ errors, touched, status, ...props }) => {
+const ProfileDataForm = ({ errors, touched, status, ...props }: OtherPropsType & FormikProps<FormValuesType> )=> {
     
     // Create the list of input forms for contacts
     const contactForm = Object.keys(props.profile.contacts).map( key => {
@@ -12,7 +13,7 @@ const ProfileDataForm = ({ errors, touched, status, ...props }) => {
         const regex = new RegExp(`${newKey}`)
         let message
         if (status) {
-            message = status.filter(msg => msg.match(regex)).map( msg => msg.replace(/\((\w+)->(\w+)\)/, '')) }
+            message = status.filter( (msg: string) => msg.match(regex)).map( (msg: string) => msg.replace(/\((\w+)->(\w+)\)/, '')) }
         
         return <div key={key} className={ (!!message && message.length > 0) ? s.contactItem + ' ' + s.errorArea : s.contactItem}>
                 <div>

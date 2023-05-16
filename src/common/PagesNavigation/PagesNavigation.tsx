@@ -1,12 +1,6 @@
 import React, { FC } from 'react';
 import s from './PagesNavigation.module.css';
 
-type PropsType = {
-    totalUsersCount: number
-    pageSize: number
-    pageNumber: number
-    onPageChange: (pageNum: number) => void
-}
 // Creating a bar of page numbers with limits from the left and right sides
 const PagesNavigation: FC<PropsType> = (props) => {
 
@@ -30,3 +24,12 @@ const PagesNavigation: FC<PropsType> = (props) => {
         </div>)
 }
 export default PagesNavigation;
+
+// Types
+
+type PropsType = {
+    totalUsersCount: number
+    pageSize: number
+    pageNumber: number
+    onPageChange: (pageNum: number) => void
+}

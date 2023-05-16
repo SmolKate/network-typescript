@@ -1,13 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import s from './Navbar.module.css';
 import FriendsContainer from "./Friends/FriendsContainer";
 import NavItem from './NavItem'
 
-const Navbar = (props) => {
+const Navbar: FC = (props) => {
 
     // Array with data about navigation buttons
     
-    const navList = [
+    const navList: NavbarType = [
         {title: 'Profile', link: '/profile'},
         {title: 'Chats', link: '/dialogs'},
         {title: 'Users', link: '/users'},
@@ -18,15 +18,23 @@ const Navbar = (props) => {
 
     // Creating the list of Components for every navigation button
 
-    const navLink = navList.map(nav => <NavItem key={nav.title} nav={nav}/>)
+    const navLink = navList.map((nav: NavbarElementType) => <NavItem key={nav.title} nav={nav}/>)
 
     return (
         <div className = {s.nav}>
             <nav>{navLink}</nav>
         <div className = {s.friend}>
-            <FriendsContainer store={props.store} />
+            <FriendsContainer />
         </div>
       </div>
     )
 }
 export default Navbar;
+
+// Types
+
+export type NavbarElementType = {
+    title: string
+    link: string
+}
+type NavbarType = NavbarElementType []

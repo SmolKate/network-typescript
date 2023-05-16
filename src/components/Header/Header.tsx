@@ -1,8 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
 import s from './Header.module.css';
 import { Link } from "react-router-dom";
+import { PropsFromRedux } from "./HeaderContainer";
 
-const Header = ({isAuth, authUserName, logout}) => {
+const Header: FC<PropsFromRedux> = ({isAuth, login, logout}) => {
   
   return (
     <header className = {s.head}>
@@ -11,7 +12,7 @@ const Header = ({isAuth, authUserName, logout}) => {
         <div className = {s.innerLoginBlock}>
           { isAuth 
             ? <div>
-                {authUserName}
+                {login}
                 <button><Link to="/profile" onClick={logout}>Log Out</Link></button>
               </div>
             : <button><Link to="/login">Log In</Link></button>}

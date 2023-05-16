@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import User from './User.js';
+import User from './User';
 import s from './Users.module.css';
 import PagesNavigation from '../../../common/PagesNavigation/PagesNavigation';
 import type { PropsFromRedux } from './UsersContainer'

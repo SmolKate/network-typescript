@@ -3,7 +3,7 @@ import React from 'react';
 
 // Image indicating the data loading
 
-const Preloader = () => {
+const Preloader: React.FC = () => {
     return <div>
         <img src={preloader} />
     </div>

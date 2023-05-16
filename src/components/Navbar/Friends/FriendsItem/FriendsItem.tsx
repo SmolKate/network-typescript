@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import s from './FriendsItem.module.css';
 import userPhoto from '../../../../assets/ava3.png';
 import { Link } from "react-router-dom";
 
 // Creating a friend item with ability to unfollow and redirect to his/her profile
 
-const FriendsItem = (props) => {
+const FriendsItem: FC<FriendsItemType> = (props) => {
    
     return (
         <div className={s.item}>
@@ -24,3 +24,14 @@ const FriendsItem = (props) => {
 }
 
 export default FriendsItem;
+
+// Types
+
+type FriendsItemType = {
+    key: number
+    id: number
+    name: string
+    photo?:null | string
+    isFollowingInProgress: number []
+    unfollow: (userId: number) => Promise<void>
+}

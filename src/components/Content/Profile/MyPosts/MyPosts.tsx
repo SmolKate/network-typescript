@@ -1,13 +1,14 @@
-import React from "react";
+import React, {FC} from "react";
 import s from './MyPosts.module.css';
 import PostElem from './PostElem/PostElem';
 import { withFormik } from "formik";
 import NewPostForm from "./PostElem/NewPostForm";
 import * as Yup from 'yup';
+import { PropsFromRedux } from "./MyPostsContainer";
 
 // Dispalay user's posts and form to add new post
 
-const MyPosts = (props) => {
+const MyPosts: FC<PropsFromRedux> = (props) => {
 
     // Create the list of posts
     let postsElements = props.profilePage.postsData
@@ -23,7 +24,7 @@ const MyPosts = (props) => {
 }
 export default MyPosts;
 
-const NewPostFormFormik = withFormik({
+const NewPostFormFormik = withFormik<MyFormPropsType & OtherPropsType, FormValuesType>({
     mapPropsToValues: ({newPost}) => ({
             newPost: newPost || ''
     }), 
@@ -36,3 +37,14 @@ const NewPostFormFormik = withFormik({
         setSubmitting(false)
     },
 })(NewPostForm)
+
+export type FormValuesType = {    // all the values that we’re going to have in our form
+    newPost: string
+}
+
+type MyFormPropsType = {  // to define some properties for our initial values
+    newPost?: string | undefined
+}
+export type OtherPropsType = {    // to pass other props to our component
+    onAddPost: (text: string) => void
+}

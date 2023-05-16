@@ -1,14 +1,10 @@
+import React, { useEffect, FC } from "react";
 import Friends from "./Friends";
-import { connect } from "react-redux";
-import { getFollowedUsers, setPageNumber } from "../../../redux/friends-reducer.tsx";
-import { getIsFollowingInProgress } from "../../../redux/users-selectors";
-import { unfollow } from "../../../redux/users-reducer.ts";
-import { useEffect } from "react";
 import PagesNavigation from "../../../common/PagesNavigation/PagesNavigation";
 import s from './Friends.module.css';
+import { PropsFromRedux } from "./FriendsContainer";
 
-
-const FriendsContainer = (props) => {
+const FriendsBlock: FC<PropsFromRedux> = (props) => {
     let {friendsData, getFollowedUsers, isAuth} = props
 
     // Get data about followed users from server after the current user authentication
@@ -21,7 +17,7 @@ const FriendsContainer = (props) => {
     
     // Get new portion of followed users and pass the new page number to the state
 
-    const onPageChange = (pageNumber) => { 
+    const onPageChange = (pageNumber: number) => { 
         getFollowedUsers (pageNumber, props.pageSize)
         props.setPageNumber(pageNumber) 
     }
@@ -37,20 +33,7 @@ const FriendsContainer = (props) => {
         </div>
         <Friends {...props}/>
         </div>}
-    </div>)
-    
+    </div>)  
 }
 
-let mapStateToProps = (state) => {
-    return {
-        friendsData : state.friendsNavbar.friendsData,
-        isFollowingInProgress: getIsFollowingInProgress(state), // selector
-        isAuth: state.auth.isAuth,
-        pageSize: state.friendsNavbar.pageSize,
-        pageNumber: state.friendsNavbar.pageNumber,
-        totalUsersCount: state.friendsNavbar.totalUsersCount,
-    }
-}
-
-export default connect(mapStateToProps, {getFollowedUsers, unfollow, setPageNumber})(FriendsContainer);
-
+export default FriendsBlock

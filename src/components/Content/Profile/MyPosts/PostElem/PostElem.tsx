@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import s from './PostElem.module.css'
 import Like from '../../../../../assets/like.png'
 
-const PostElem = (props) => {
+const PostElem: FC<PostElemType> = (props) => {
     return (
         <div className = {s.item}>
             <div className = {s.likesCount}>
@@ -18,3 +18,12 @@ const PostElem = (props) => {
     )
 }
 export default PostElem;
+
+// Types
+
+type PostElemType = {
+    key: number
+    id: number 
+    message: string
+    likesCount: number
+}

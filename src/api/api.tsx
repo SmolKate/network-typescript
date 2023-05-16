@@ -1,43 +1,6 @@
 import axios, * as others from 'axios';
 import { PhotosType, ProfileType, UsersDataType } from '../types/types';
 
-export enum CommonResultCodeEnum {
-    Success = 0
-}
-export enum ResultCodeEnum {
-    Success = 0,
-    Error = 1,
-}
-export enum ResultCodeForCaptchaEnum {
-    CaptchaIsRequired = 10
-}
-
-type ResponseType<D = {}, RC = CommonResultCodeEnum | number> = {
-    data: D
-    resultCode: RC
-    messages: Array<string>
-}
-
-type UsersGetResponseType = {
-    items: Array<UsersDataType>
-    totalCount: number
-    error: string
-}
-
-type AuthMeResponseDataType = {
-    id: number
-    email: string
-    login: string   
-}
-
-type AuthLoginResponseDataType = {
-    userId: number
-}
-
-type SecurityCaptchaGetResponseType = {
-    url: string
-}
-
 const instance = axios.create({
     withCredentials : true,
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -113,8 +76,47 @@ export const profileAPI = {
         return response.data;
     },
 
-    async updateProfile (profile: ProfileType) {
+    async updateProfile (profile: Omit<ProfileType, "photos">) {
         const response = await instance.put<ResponseType>(`profile`, profile);
         return response.data;
     },
+}
+
+// Types
+
+export enum CommonResultCodeEnum {
+    Success = 0
+}
+export enum ResultCodeEnum {
+    Success = 0,
+    Error = 1,
+}
+export enum ResultCodeForCaptchaEnum {
+    CaptchaIsRequired = 10
+}
+
+type ResponseType<D = {}, RC = CommonResultCodeEnum | number> = {
+    data: D
+    resultCode: RC
+    messages: Array<string>
+}
+
+type UsersGetResponseType = {
+    items: Array<UsersDataType>
+    totalCount: number
+    error: string
+}
+
+type AuthMeResponseDataType = {
+    id: number
+    email: string
+    login: string   
+}
+
+type AuthLoginResponseDataType = {
+    userId: number
+}
+
+type SecurityCaptchaGetResponseType = {
+    url: string
 }
