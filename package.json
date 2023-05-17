@@ -53,8 +53,14 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "gh-pages": "^4.0.0",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }

@@ -24,7 +24,7 @@ const App: FC<PropsFromRedux> = ({initialiseApp, isInitialised}) => {
   // Show the loading page during app initialisation
 
   if (!isInitialised) {
-    return <Preloader />
+    return (<Preloader />)
   }
 
   // Show the main page, which consist of header, navbar and 

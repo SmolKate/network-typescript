@@ -1,4 +1,4 @@
-import axios, * as others from 'axios';
+import axios from 'axios';
 import { PhotosType, ProfileType, UsersDataType } from '../types/types';
 
 const instance = axios.create({
@@ -95,7 +95,7 @@ export enum ResultCodeForCaptchaEnum {
     CaptchaIsRequired = 10
 }
 
-type ResponseType<D = {}, RC = CommonResultCodeEnum | number> = {
+export type ResponseType<D = {}, RC = CommonResultCodeEnum | number> = {
     data: D
     resultCode: RC
     messages: Array<string>

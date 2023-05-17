@@ -3,6 +3,15 @@ import { getFollowedUsers } from "./friends-reducer";
 import { UsersDataType } from "../types/types"
 import { RootState, AppDispatch, BasicActionsType, BasicThunkType } from './redux-store'
 
+let initialState = {
+    usersData: [] as UsersDataType[],
+    totalUsersCount: 40,
+    pageSize: 10,
+    pageNumber: 1,
+    isFetching: true,
+    isFollowingInProgress: [] as number[] // array what contains all users with follow/unfollow process in progress
+};
+
 export const actions = {
     followSuccess: (userId: number) => ({type: 'users/FOLLOW', userId} as const),
     unfollowSuccess: (userId: number) => ({type: 'users/UNFOLLOW', userId} as const),
@@ -16,14 +25,7 @@ export const actions = {
 // if isFetching is true - add the user to the isFollowingInProgress list; 
 // if isFetching is false - delet the user from the isFollowingInProgress list;
 
-let initialState = {
-    usersData: [] as Array<UsersDataType>,
-    totalUsersCount: 40,
-    pageSize: 10,
-    pageNumber: 1,
-    isFetching: true,
-    isFollowingInProgress: [] as Array<number>// array what contains all users with follow/unfollow process in progress
-};
+
 
 const usersReducer = (state = initialState, action: ActionsType): InitialStateType => {
     
@@ -119,6 +121,6 @@ export const unfollow = (userId: number): ThunkType => async (dispatch) => {
 
 // Types
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 type ActionsType = BasicActionsType<typeof actions>
 type ThunkType = BasicThunkType<ActionsType>
